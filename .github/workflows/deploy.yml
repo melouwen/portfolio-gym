@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22 # Оновили до стабільної 22-ї версії
           cache: 'npm'
 
       - name: Install dependencies
@@ -28,13 +28,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Setup GitHub Pages
-        uses: actions/configure-pages@v5
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './out'
 
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4

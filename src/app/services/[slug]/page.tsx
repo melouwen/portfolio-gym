@@ -4,11 +4,19 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CONTENT } from "@/content/siteContent";
 
+// --- НОВИЙ БЛОК ДЛЯ СТАТИЧНОГО ЕКСПОРТУ ---
+// Ця функція каже Next.js, які сторінки створити наперед
+export async function generateStaticParams() {
+  return CONTENT.services.items.map((service) => ({
+    slug: service.slug,
+  }));
+}
+// ------------------------------------------
+
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// Оновлений, більш плавний розділювач
 function SectionDivider() {
   return (
     <div className="pointer-events-none absolute inset-x-0 -top-10 z-20 h-20 sm:-top-14 sm:h-28 flex justify-center overflow-hidden">
@@ -18,7 +26,6 @@ function SectionDivider() {
   );
 }
 
-// Оновлена картка з адаптивними відступами
 function GlassCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <div className={`relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-white/5 bg-[#0a0a0f]/80 p-5 sm:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.3)] backdrop-blur-xl transition-all hover:border-white/10 ${className}`}>
@@ -35,17 +42,13 @@ export default async function ServiceDetailsPage({ params }: Props) {
 
   return (
     <div className="relative flex min-h-dvh flex-col overflow-hidden bg-[#07070a]">
-      {/* Глобальна 3D сітка */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       </div>
 
       <div className="relative z-10">
         <Header />
-
         <main className="relative flex-1 pt-0">
-
-          {/* HERO СЕКЦІЯ */}
           <section className="relative -mt-px flex min-h-[65vh] sm:min-h-[75vh] lg:min-h-[85vh] items-end overflow-hidden">
             <div className="absolute inset-0 z-0">
               <img
@@ -60,19 +63,15 @@ export default async function ServiceDetailsPage({ params }: Props) {
             <div className="relative z-10 w-full">
               <div className="mx-auto max-w-[1400px] px-4 pb-16 pt-32 sm:px-6 lg:px-12 sm:pb-20">
                 <div className="max-w-4xl">
-
-                  {/* Кнопка "Назад" / Breadcrumb */}
                   <Link
                     href="/#services"
                     className="mb-6 sm:mb-8 inline-flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-white/50 transition-colors hover:text-[var(--smg-primary)]"
                   >
                     Усі послуги
                   </Link>
-
                   <h1 className="text-4xl sm:text-6xl lg:text-[6.5rem] font-black uppercase tracking-tighter text-white lg:leading-[0.9] text-balance drop-shadow-lg">
                     {service.title.uk}
                   </h1>
-
                   <p className="mt-4 sm:mt-8 max-w-2xl text-sm sm:text-lg lg:text-xl leading-relaxed text-white/70 font-medium">
                     {service.description.uk}
                   </p>
@@ -81,19 +80,11 @@ export default async function ServiceDetailsPage({ params }: Props) {
             </div>
           </section>
 
-          {/* КОНТЕНТНА СЕКЦІЯ */}
           <section className="relative pb-20 pt-6 sm:pb-32 sm:pt-10 lg:pt-16">
             <SectionDivider />
-
             <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-12 relative z-10">
-
-              {/* Розділяємо на 2 колонки. На ПК права колонка "прилипає" (sticky) */}
               <div className="grid gap-6 lg:grid-cols-12 lg:gap-10 items-start">
-
-                {/* ЛІВА КОЛОНКА (Опис) */}
                 <div className="flex flex-col gap-6 lg:col-span-8">
-
-                  {/* Про тренування */}
                   <GlassCard>
                     <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
                       <div className="h-[2px] w-8 sm:w-12 bg-[var(--smg-primary)] shadow-[0_0_10px_var(--smg-primary)]" />
@@ -106,7 +97,6 @@ export default async function ServiceDetailsPage({ params }: Props) {
                     </p>
                   </GlassCard>
 
-                  {/* Що ви отримаєте */}
                   <GlassCard>
                     <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
                       <div className="h-[2px] w-8 sm:w-12 bg-[var(--smg-primary)] shadow-[0_0_10px_var(--smg-primary)]" />
@@ -114,7 +104,6 @@ export default async function ServiceDetailsPage({ params }: Props) {
                         Що ви отримаєте
                       </h2>
                     </div>
-
                     <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
                       {service.benefits.uk.map((benefit, i) => (
                         <div key={i} className="group flex items-start gap-4 rounded-[1rem] sm:rounded-[1.25rem] border border-white/5 bg-[#0a0a0f] p-4 sm:p-5 transition-all duration-300 hover:border-[var(--smg-primary)]/30 hover:bg-[var(--smg-primary)]/5 hover:shadow-[0_10px_30px_-10px_rgba(255,107,26,0.15)]">
@@ -132,10 +121,7 @@ export default async function ServiceDetailsPage({ params }: Props) {
                   </GlassCard>
                 </div>
 
-                {/* ПРАВА КОЛОНКА (Статистика + CTA) - STICKY на ПК */}
                 <div className="flex flex-col gap-6 lg:col-span-4 lg:sticky lg:top-32">
-
-                  {/* Віджет статистики */}
                   <GlassCard className="!p-5 sm:!p-6">
                     <div className="grid grid-cols-2 gap-4 divide-x divide-white/10">
                       <div className="pr-2 sm:pr-4">
@@ -150,7 +136,6 @@ export default async function ServiceDetailsPage({ params }: Props) {
                         <p className="mt-2 text-base sm:text-lg font-black text-white uppercase tracking-wider">{service.difficulty.uk}</p>
                       </div>
                     </div>
-
                     <div className="mt-5 pt-5 sm:mt-6 sm:pt-6 border-t border-white/10">
                       <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 mb-2 sm:mb-3">Фокус заняття</p>
                       <div className="inline-flex items-center gap-2 rounded-lg border border-[var(--smg-primary)]/20 bg-[var(--smg-primary)]/10 px-3 py-2 text-xs sm:text-sm font-bold text-[var(--smg-primary)]">
@@ -163,12 +148,8 @@ export default async function ServiceDetailsPage({ params }: Props) {
                     </div>
                   </GlassCard>
 
-                  {/* CTA Блок (Готові почати) */}
                   <div className="relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-[var(--smg-primary)]/30 bg-[#0a0a0f] p-6 sm:p-8 shadow-[0_20px_50px_rgba(255,107,26,0.15)] transition-all hover:shadow-[0_20px_60px_rgba(255,107,26,0.25)]">
-
-                    {/* Фонове світіння всередині картки */}
                     <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[var(--smg-primary)]/20 blur-[80px] pointer-events-none" />
-
                     <div className="relative z-10 flex flex-col h-full">
                       <div>
                         <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white mb-2 sm:mb-3">
@@ -178,7 +159,6 @@ export default async function ServiceDetailsPage({ params }: Props) {
                           Забронюйте місце на тренування прямо зараз або замовте консультацію, якщо маєте питання.
                         </p>
                       </div>
-
                       <div className="mt-auto flex flex-col gap-3 sm:gap-4">
                         <Link href="/#contact" className="flex w-full items-center justify-center rounded-full bg-[var(--smg-primary)] px-6 py-4 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-white shadow-[0_0_20px_rgba(255,107,26,0.3)] transition-transform hover:scale-[1.02] active:scale-[0.98]">
                           Записатися
@@ -189,7 +169,6 @@ export default async function ServiceDetailsPage({ params }: Props) {
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>

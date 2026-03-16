@@ -1,20 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // 1. Статичний експорт для GitHub Pages
+  // 1. Статичний експорт
   output: 'export',
 
-  // 2. Вимикаємо оптимізацію зображень (не працює на статиці)
+  // 2. Зображення
   images: {
     unoptimized: true,
   },
 
-  // 3. Налаштування шляхів для репозиторію
+  // 3. Шляхи GitHub Pages
   basePath: '/portfolio-gym',
-  assetPrefix: '/portfolio-gym/',
   trailingSlash: true,
 
-  // 4. Ігноруємо помилки, щоб білд не падав через дрібниці
+  // 4. Виправлений синтаксис для ігнорування помилок (Next.js 16+)
   eslint: {
     ignoreDuringBuilds: true,
   },

@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+/* =========================================
+   SMG design tokens
+   ========================================= */
+:root {
+  --smg-primary: #ff6b1a;
+  --smg-primary-soft: #ff9151;
+
+  --smg-bg: #07070a;
+  --smg-card: #0b1120;
+  --smg-border: rgba(255, 255, 255, 0.08);
+  --smg-text: #f9fafb;
+  --smg-muted: #94a3b8;
+
+  --smg-shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.18);
+  --smg-shadow-glow: 0 0 30px rgba(255, 107, 26, 0.35);
+
+  --smg-radius-card: 18px;
+  --smg-radius-pill: 9999px;
+}
+
+body.theme-light {
+  --smg-bg: #f9fafb;
+  --smg-card: #ffffff;
+  --smg-border: #e5e7eb;
+  --smg-text: #111827;
+  --smg-muted: #4b5563;
+  --smg-shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+body.theme-dark {
+  --smg-bg: #07070a;
+  --smg-card: #0b1120;
+  --smg-border: rgba(255, 255, 255, 0.08);
+  --smg-text: #f9fafb;
+  --smg-muted: #94a3b8;
+  --smg-shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  background: var(--smg-bg);
+}
+
+body {
+  margin: 0;
+  background: var(--smg-bg);
+  color: var(--smg-text);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Inter",
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+    "Segoe UI Emoji";
+  text-rendering: geometricPrecision;
+  /* overflow-x: hidden; - ВИДАЛЕНО, бо це ламає Scroll Snapping у браузерах */
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 96px;
+}
+
+::selection {
+  background: rgba(255, 107, 26, 0.28);
+  color: white;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* =========================================
+   Background layers
+   ========================================= */
+
+.smg-tech-bg {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 107, 26, 0.06), transparent 18%),
+    radial-gradient(circle at 80% 18%, rgba(56, 189, 248, 0.06), transparent 20%),
+    radial-gradient(circle at 60% 70%, rgba(168, 85, 247, 0.05), transparent 18%),
+    linear-gradient(180deg, #040814 0%, #060b18 28%, #050816 60%, #030611 100%);
+}
+
+.smg-bg-grid {
+  opacity: 0.06;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.65) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.65) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 100%);
+}
+
+.smg-bg-dots {
+  opacity: 0.08;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.45) 0.8px, transparent 0.8px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 95%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 95%);
+}
+
+.smg-bg-vignette {
+  background: radial-gradient(
+    circle at center,
+    transparent 28%,
+    rgba(0, 0, 0, 0.16) 66%,
+    rgba(0, 0, 0, 0.42) 100%
+  );
+}
+
+.smg-scanline {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 48%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.03) 52%,
+    transparent 100%
+  );
+}
+
+/* =========================================
+   Motion squares / particles
+   ========================================= */
+
+@keyframes smgFloatUp1 {
+  0% {
+    transform: translate3d(0, 40px, 0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.35;
+  }
+  85% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translate3d(0, -80px, 0) rotate(10deg);
+    opacity: 0;
+  }
+}
+
+@keyframes smgFloatUp2 {
+  0% {
+    transform: translate3d(0, 50px, 0) rotate(0deg) scale(0.95);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.3;
+  }
+  80% {
+    opacity: 0.16;
+  }
+  100% {
+    transform: translate3d(18px, -90px, 0) rotate(-12deg) scale(1.05);
+    opacity: 0;
+  }
+}
+
+@keyframes smgFloatUp3 {
+  0% {
+    transform: translate3d(0, 36px, 0) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.22;
+  }
+  90% {
+    opacity: 0.12;
+  }
+  100% {
+    transform: translate3d(-16px, -70px, 0) rotate(14deg);
+    opacity: 0;
+  }
+}
+
+@keyframes smgPulseSoft {
+  0%,
+  100% {
+    opacity: 0.08;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.18;
+    transform: scale(1.04);
+  }
+}
+
+.smg-square-1 {
+  animation: smgFloatUp1 14s linear infinite;
+}
+
+.smg-square-2 {
+  animation: smgFloatUp2 18s linear infinite;
+}
+
+.smg-square-3 {
+  animation: smgFloatUp3 16s linear infinite;
+}
+
+.smg-pulse-soft {
+  animation: smgPulseSoft 8s ease-in-out infinite;
+}
+
+/* =========================================
+   Glass / helpers
+   ========================================= */
+
+.smg-glass {
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* =========================================
+   Scrollbar
+   ========================================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ffffff, #52525b);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ffffff, #71717a);
+}
+
+/* Для Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #52525b transparent;
+}
+
+/* =========================================
+   Animations (Marquee)
+   ========================================= */
+
+@keyframes servicesMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-325px * 6));
+  }
+}
+
+.services-marquee {
+  animation: servicesMarquee 32s linear infinite;
+  will-change: transform;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  /* 40s - швидкість руху, можеш змінити під себе */
+  animation: marquee 40s linear infinite;
+  will-change: transform; /* Допомагає браузеру робити анімацію плавною */
+}
+
+/* Приховати скролбар для горизонтальних списків (Tabs) */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

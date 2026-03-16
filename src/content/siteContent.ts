@@ -599,7 +599,7 @@ export const CONTENT = {
 
   footer: {
     tagline: {
-      uk: "Тренируйся і розвивайся разом з нами!",
+      uk: "Тренируйся розвивайся разом з нами!",
       en: "Train and develop with us!",
     },
     contactsTitle: { uk: "Контакти", en: "Contacts" },
